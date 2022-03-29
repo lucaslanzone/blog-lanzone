@@ -2,6 +2,44 @@
 
 {% block main_content %}
 
-<h1> Lanzamientos</h1>
+<div class="container mt-5">
+    {% if formulario.errors %}
+    <p style="color: red"> Hay problemas con los datos cargados</p>
+    {% endif %}
+        
 
+    <form action="/motoapp/lanzamientos/" method="POST" class="form-group">
+        {% csrf_token %}
+        <table class="table">
+            {{formulario.as_table}}
+        </table>
+
+        <input type="submit" value="Cargar lanzamiento" class="btn btn-primary">
+    </form>
+
+</div>
+
+
+<div class="container mt-5">
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th class="table-success">Fecha</th>
+                <th class="table-success">Marca</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for lanzamiento in lanzamiento %}
+                <tr>
+                <td>{{lanzamiento.fecha}}</td>
+                <td>{{lanzamiento.marca}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+
+    </table>
+</div>
 {% endblock main_content %}

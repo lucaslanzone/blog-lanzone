@@ -6,18 +6,21 @@ from motoapp.forms import lanzamientosFormulario
 
 # Create your views here.
 def inicio(request):
-    dict_ctx = {"title": "Inicio", "message": "Bienvenid@s"}
+    dict_ctx = {"title": "Inicio", "message": "MOTOBLOG"}
     return render(request, "motoapp/index.html", dict_ctx)
 
 def pruebas(request):
+    
     dict_ctx = {"title": "Pruebas", "message": "Pruebas"}
     return render(request, "motoapp/pruebas.html", dict_ctx)
 
 def lanzamientos(request):
+    
     dict_ctx = {"title": "Lanzamientos", "message": "Lanzamientos"}
     return render(request, "motoapp/lanzamientos.html", dict_ctx)
 
 def mercado(request):
+    
     dict_ctx = {"title": "Mercado", "message": "Mercado"}
     return render(request, "motoapp/mercado.html", dict_ctx)
 
@@ -40,18 +43,24 @@ def formulario_lanzamiento(request):
 
         return render(request, 'motoapp/lanzamientosFormulario.html', {"formulario": lanzamientos_form})
 
-def buscarLanzamiento(request):
+def buscarlanzamiento(request):
 
-    data = request.GET['fecha']
+    data = request.GET.get['fecha']
+    error = ""
     print(data)
 
     if data:
-        lanzamientos = lanzamientos.objects.filter(fecha__icontains = data)
-        print(lanzamientos)
+        try:
+        
+            lanzamientos = lanzamientos.objects.get(fecha= data)
+        
+            return render(request, 'motoapp/busquedaLanzamientos.html', {"lanzamientos": lanzamientos, "id": data})
 
-        return render(request, 'motoapp/busquedaLanzamientos.html', {"lanzamiento": lanzamientos[0], "id": data})
+        except Exception as exc:
+            print(exc)
+            error = "Lanzamiento no encontrado"
 
 
-    return render(request, 'motoapp/busquedaLanzamientos.html')
+    return render(request, 'motoapp/busquedaLanzamientos.html', {"error": error})
 
 

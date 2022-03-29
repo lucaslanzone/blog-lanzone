@@ -1,5 +1,6 @@
 from operator import index
 from django.urls import path
+from unicodedata import name
 from motoapp.views import *
 
 
@@ -9,5 +10,5 @@ urlpatterns = [
     path('lanzamientos/', lanzamientos, name="Lanzamientos"),
     path('mercado/', mercado, name="Mercado"),
     path('lanzamientosFormulario/', formulario_lanzamiento, name='Formulario'),
-    path('buscarlanzamiento/', buscarLanzamiento, name='BusquedaLanzamiento'),
+    path('buscarlanzamiento/', buscarlanzamiento, name='BusquedaLanzamiento'),
 ]

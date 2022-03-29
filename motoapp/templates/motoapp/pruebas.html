@@ -2,16 +2,28 @@
 
 {% block main_content %}
 
-<h1> Vista de Estudiantes</h1>
+<div class="container mt-5">
+    <table class="table">
 
-<ul>
-    <li>Yamaha</li>
-    <li>Ducati</li>
-    <li>Honda</li>
-    <li>Husqvarna</li>
-    <li>Suzuki</li>
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Calificacion</th>
+            </tr>
+        </thead>
 
-    
-    <ul/>
+        <tbody>
+            {% for pruebas in pruebas %}
+                <tr>
+                <td>{{pruebas.marca}}</td>
+                <td>{{pruebas.modelo}}</td>
+                <td>{{pruebas.calificacion}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
 
+
+    </table>
+</div>
 {% endblock main_content %}

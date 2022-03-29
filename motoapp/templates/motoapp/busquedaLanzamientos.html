@@ -19,13 +19,10 @@
 
     </form>
 
+    {% if error %}<p style="color:red">{{error}}</p>{% endif %}
+
     {% if Lanzamiento %}
       <p> Lanzamiento encontrado: {{lanzamiento.nombre}}</p>
-
-    {% endif %}
-
-    {% if id %}
-    <p> Lanzamiento encontrado: {{id}}</p>
 
     {% endif %}
     
