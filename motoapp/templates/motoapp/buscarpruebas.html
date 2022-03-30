@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar Lanzamiento</title>
+    <title>Buscar Pruebas</title>
 </head>
 <body>
 
-    <form action="/motoapp/buscarlanzamiento" method="get">
-        {{% csrf_token %}}
+    <form action="/motoapp/buscarpruebas" method="get">
+        
+        
 
-        <input type="date" name="fecha">
+        <input type="data" name="marca">
 
         <input type="submit" value="Buscar">
          
@@ -21,8 +22,8 @@
 
     {% if error %}<p style="color:red">{{error}}</p>{% endif %}
 
-    {% if Lanzamiento %}
-      <p> Lanzamiento encontrado: {{lanzamiento.nombre}}</p>
+    {% if pruebas %}
+      <p> Prueba encontrada: {{prueba.nombre}}</p>
 
     {% endif %}
     

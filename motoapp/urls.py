@@ -9,6 +9,6 @@ urlpatterns = [
     path('pruebas/', pruebas, name="Pruebas"),
     path('lanzamientos/', lanzamientos, name="Lanzamientos"),
     path('mercado/', mercado, name="Mercado"),
-    path('lanzamientosFormulario/', formulario_lanzamiento, name='Formulario'),
-    path('buscarlanzamiento/', buscarlanzamiento, name='BusquedaLanzamiento'),
+    path('pruebasFormulario/', formulario_pruebas, name='Formulario'),
+    path('buscarpruebas/', buscarpruebas, name='buscarpruebas'),
 ]

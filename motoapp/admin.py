@@ -7,4 +7,3 @@ admin.site.register(pruebas)
 admin.site.register(lanzamientos)
 
 admin.site.register(mercado)
-

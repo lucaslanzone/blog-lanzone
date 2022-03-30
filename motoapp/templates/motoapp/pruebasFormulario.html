@@ -3,11 +3,11 @@
 {% endif %}
     
 
-<form action="/motoapp/lanzamientosFormulario/" method="POST">
+<form action="/motoapp/pruebasFormulario/" method="POST">
     {% csrf_token %}
     <table>
         {{formulario.as_table}}
     </table>
 
-    <input type="submit" value="Cargar lanzamiento">
+    <input type="submit" value="Cargar Prueba">
 </form>

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from sqlite3 import Cursor
 from motoapp.models import pruebas, lanzamientos, mercado
-from motoapp.forms import lanzamientosFormulario
+from motoapp.forms import pruebasFormulario
 
 # Create your views here.
 def inicio(request):
@@ -24,43 +24,43 @@ def mercado(request):
     dict_ctx = {"title": "Mercado", "message": "Mercado"}
     return render(request, "motoapp/mercado.html", dict_ctx)
 
-def formulario_lanzamiento(request):
+def formulario_pruebas(request):
 
     if request.method == "POST":
-        lanzamientos = lanzamientosFormulario(request.POST)
-        print(lanzamientos)
+        pruebas = pruebasFormulario(request.POST)
+        print(pruebas)
 
-        if lanzamientos.is_valid:
-            data = lanzamientos.cleaned_data
+        if pruebas.is_valid:
+            data = pruebas.cleaned_data
 
-            lanzamientos_nuevo = lanzamientos(data['fecha'], data['marca'])
-            lanzamientos_nuevo.save()
+            pruebas_nuevo = pruebas(data['marca'], data['modelo'], data['calificacion'])
+            pruebas_nuevo.save()
 
         return render(request, 'motoapp/index.html')
 
     else: 
-        lanzamientos_form = lanzamientosFormulario()
+        pruebas_form = pruebasFormulario()
 
-        return render(request, 'motoapp/lanzamientosFormulario.html', {"formulario": lanzamientos_form})
+        return render(request, 'motoapp/pruebasFormulario.html', {"formulario": pruebas_form})
 
-def buscarlanzamiento(request):
+def buscarpruebas(request):
 
-    data = request.GET.get['fecha']
+    data = request.GET.get('marca', "")
     error = ""
-    print(data)
+    
 
     if data:
         try:
         
-            lanzamientos = lanzamientos.objects.get(fecha= data)
+            pruebas = pruebasFormulario.objects.get(marca = data)
         
-            return render(request, 'motoapp/busquedaLanzamientos.html', {"lanzamientos": lanzamientos, "id": data})
+            return render(request, 'motoapp/buscarpruebas.html', {"pruebas": pruebas, "id": data})
 
         except Exception as exc:
             print(exc)
-            error = "Lanzamiento no encontrado"
+            error = "Prueba no encontrada"
 
 
-    return render(request, 'motoapp/busquedaLanzamientos.html', {"error": error})
+    return render(request, 'motoapp/buscarpruebas.html', {"error": error})
 
 
