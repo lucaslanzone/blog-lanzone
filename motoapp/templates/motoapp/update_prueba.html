@@ -1,0 +1,13 @@
+{% if formulario.errors %}
+    <p style="color: red"> Hay problemas con los datos cargados</p>
+{% endif %}
+    
+
+<form action="/motoapp/update_prueba/{{marca_id}}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{formulario.as_table}}
+    </table>
+
+    <input type="submit" value="Cargar Prueba">
+</form>

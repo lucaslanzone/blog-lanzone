@@ -7,9 +7,10 @@
 
         <thead>
             <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Calificacion</th>
+                <th class="table-success">Marca</th>
+                <th class="table-success">Modelo</th>
+                <th class="table-success">Calificacion</th>
+                <th class="table-success">Accion</th>
             </tr>
         </thead>
 
@@ -19,6 +20,10 @@
                 <td>{{pruebas.marca}}</td>
                 <td>{{pruebas.modelo}}</td>
                 <td>{{pruebas.calificacion}}</td>
+                <td>
+                    <a href="{% url 'eliminarPrueba' pruebas.marca%}">Borrar</a>
+
+                </td>
                 </tr>
             {% endfor %}
         </tbody>
