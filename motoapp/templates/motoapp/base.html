@@ -71,6 +71,16 @@
             </div>
         </header>
 
+        {% if errors %}
+            {% for error in errors %}
+
+               {{error}}
+
+            {% endfor %}
+
+        
+        {% endif %}
+
 
         {% block main_content %}
              <h2> </h2>

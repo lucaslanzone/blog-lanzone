@@ -1,10 +1,11 @@
 from dataclasses import fields
 from unicodedata import name
-from django.shortcuts import render
+from urllib import request
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from sqlite3 import Cursor
 from motoapp.models import Pruebas, Lanzamientos, Mercado
-from motoapp.forms import pruebasFormulario
+from motoapp.forms import pruebasFormulario, UsuarioRegistroForm
 
 #Vistas basadas en clases
 
@@ -14,11 +15,18 @@ from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 
+# Para el Login
+
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def inicio(request):
     dict_ctx = {"title": "Inicio", "message": "MOTOBLOG"}
     return render(request, "motoapp/index.html", dict_ctx)
 
+@login_required()
 def Pruebas(request):
 
     dict_ctx = {"title": "Pruebas", "message": "Pruebas"}
@@ -133,7 +141,7 @@ def actualizar_pruebas(request, marca_id):
         return render(request, "motoapp/update_prueba.html", {"formulario": formulario, "marca_id":marca_id})
 
 
-class PruebasLista(ListView):
+class PruebasLista(LoginRequiredMixin ,ListView):
 
     model = Pruebas
     template_name = "/motoapp/pruebas_list.html"
@@ -158,3 +166,58 @@ class PruebasActualizar(UpdateView):
 class PruebasBorrar(DeleteView):
     model = Pruebas
     success_url = "/motoapp/pruebas/list"
+
+
+def login_request(request):
+
+    if request.method == "POST":
+        formulario = AuthenticationForm(request, data= request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+
+            nombre_usuario = data.get('username')
+            contrasenia = data.get('password')
+
+            
+            usuario = authenticate(username=nombre_usuario, password=contrasenia)
+
+            if usuario is not None:
+                login(request, usuario)
+
+                dict_ctx = {"title": "Inicio", "page": usuario }
+                return render(request, "motoapp/index.html", dict_ctx)
+
+            else:
+                dict_ctx = {"title": "Inicio", "page": usuario, "errors": ["El usuario no existe"]}
+                return render(request, 'motoapp/index.html', dict_ctx)
+        else:
+            dict_ctx = {"title": "Inicio", "page": "anonymous", "errors": ["Revise los datos cargados en el form"]}
+            return render(request, 'motoapp/index.html', dict_ctx)
+
+    
+    else:
+        form = AuthenticationForm()
+        return render(request, "motoapp/login.html", {"form": form})
+
+
+
+def register_request(request):
+
+    if request.method == "POST":
+
+      form = UsuarioRegistroForm(request.POST)
+
+      if form.is_valid():
+          usuario = form.cleaned_data.get("username")
+          print(usuario)
+          form.save()
+          return redirect("Inicio")
+
+    
+      else:
+           dict_ctx = {"title": "Inicio", "page": "anonymous", "errors": ["No paso las validaciones"]}
+           return render(request, "motoapp/index.html", dict_ctx)
+    else:
+        form = UsuarioRegistroForm()
+        return render(request, "motoapp/register.html", {"form": form})

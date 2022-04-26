@@ -2,10 +2,13 @@ from operator import index
 from django.urls import path
 from unicodedata import name
 from motoapp.views import *
-
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', inicio, name="Inicio"),
+    path('login/', login_request, name="Login"),
+    path('logout/', LogoutView.as_view(template_name="motoapp/logout.html"), name="logout"),
+    path('register/', register_request, name="register"),
     path('pruebas/', Pruebas, name="Pruebas"),
     path('lanzamientos/', Lanzamientos, name="Lanzamientos"),
     path('mercado/', Mercado, name="Mercado"),
