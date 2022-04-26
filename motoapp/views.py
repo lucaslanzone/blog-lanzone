@@ -51,17 +51,19 @@ def Pruebas(request):
             pruebas = pruebasFormulario()
             return render(request, "motoapp/pruebas.html", {"pruebas": pruebas, "title": "Pruebas", "page": "pruebas", "formulario": formulario})
            
-
+@login_required
 def Lanzamientos(request):
     
     dict_ctx = {"title": "Lanzamientos", "message": "Lanzamientos"}
     return render(request, "motoapp/lanzamientos.html", dict_ctx)
 
+@login_required
 def Mercado(request):
     
     dict_ctx = {"title": "Mercado", "message": "Mercado"}
     return render(request, "motoapp/mercado.html", dict_ctx)
 
+@login_required
 def formulario_pruebas(request):
 
     if request.method == "POST":
@@ -86,7 +88,7 @@ def formulario_pruebas(request):
       
       
       
-      
+@login_required      
 def buscarpruebas(request):
 
     data = request.GET.get('marca', "")
