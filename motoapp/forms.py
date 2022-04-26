@@ -25,6 +25,9 @@ class UsuarioEditForm(UserCreationForm):
     password1 = forms.CharField(label='Contraseña 1', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Contraseña 2', widget=forms.PasswordInput)
 
+    first_name = forms.CharField(label="Nombre")
+    last_name = forms.CharField(label="Apellido")
+
     class Meta:
         model = User
-        fields = ['email', 'password1', 'password2']
+        fields = ['first_name','last_name','email', 'password1', 'password2']
