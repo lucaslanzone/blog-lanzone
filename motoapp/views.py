@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from sqlite3 import Cursor
 from motoapp.models import Pruebas, Lanzamientos, Mercado
-from motoapp.forms import pruebasFormulario, UsuarioRegistroForm
+from motoapp.forms import pruebasFormulario, UsuarioRegistroForm, UsuarioEditForm
 
 #Vistas basadas en clases
 
@@ -223,3 +223,30 @@ def register_request(request):
     else:
         form = UsuarioRegistroForm()
         return render(request, "motoapp/register.html", {"form": form})
+
+@login_required
+def actualizar_usuario(request):
+
+    usuario = request.user
+
+    if request.method == "POST":
+        formulario = UsuarioEditForm(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+
+            usuario.email = data["email"]
+            usuario.password1 = data["password1"]
+            usuario.password2 = data["password2"]
+
+            usuario.save
+
+            return redirect("Inicio")
+
+        else:
+            formulario = UsuarioEditForm(initial={"email": usuario.email})
+            return render(request, "motoapp/editar_usuario.html", {"form": formulario, "errors": ["Datos incorrectos"]})
+
+    else:
+        formulario = UsuarioEditForm(initial={"email": usuario.email})
+        return render(request, "motoapp/editar_usuario.html", {"form": formulario})

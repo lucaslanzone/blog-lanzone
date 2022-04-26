@@ -23,4 +23,6 @@ urlpatterns = [
     path("pruebas/detalle/<pk>/", PruebasDetalle.as_view(), name="pruebas_detail"),
     path("pruebas/editar/<pk>/", PruebasActualizar.as_view(), name="pruebas_update"),
     path("pruebas/borrar/<pk>/", PruebasBorrar.as_view(), name="pruebas_delete"),
+
+    path("actualizar_usuario/", actualizar_usuario, name="EditarUsuario")
 ]
