@@ -7,3 +7,5 @@ admin.site.register(Pruebas)
 admin.site.register(Lanzamientos)
 
 admin.site.register(Mercado)
+
+admin.site.register(Avatar)
