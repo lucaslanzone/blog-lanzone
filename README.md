@@ -6,3 +6,4 @@ Entrega intermedia CoderHouse - Motoblog
 4 - Correr la aplicacion con python3 manage.py runserver
 5 - Ingresar a la siguiente url: http://127.0.0.1:8000/motoapp/
 6 - Desde la navbar superior se acceden a las distintas funcionalidades del sitio
+7 - Para acceder como admin User: lucaslanzone , Password: motoblog
