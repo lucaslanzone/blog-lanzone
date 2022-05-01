@@ -1,10 +1,11 @@
 from dataclasses import fields
+from re import A
 from unicodedata import name
 from urllib import request
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from sqlite3 import Cursor
-from motoapp.models import Pruebas, Lanzamientos, Mercado
+from motoapp.models import Pruebas, Lanzamientos, Mercado, Avatar
 from motoapp.forms import pruebasFormulario, UsuarioRegistroForm, UsuarioEditForm
 
 #Vistas basadas en clases
@@ -23,6 +24,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 def inicio(request):
+    
     dict_ctx = {"title": "Inicio", "message": "MOTOBLOG"}
     return render(request, "motoapp/index.html", dict_ctx)
 
